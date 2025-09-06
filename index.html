@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Srineesh Konda — Portfolio</title>
+<meta name="theme-color" content="#dc0000">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+  :root{
+    --rosso:#dc0000; --rosso-deep:#9b0000;
+    --asphalt:#0a0a0a; --mid:#14161a; --steel:#2a2c33;
+    --fg:#f5f7fa; --muted:#9ca3af; --accent:#ffea00;
+    --card-bg:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+    --liquid-tint: rgba(220,0,0,.4); --glow:0 0 40px rgba(220,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:radial-gradient(1200px 720px at 65% -10%, var(--liquid-tint), transparent 60%), var(--asphalt); color:var(--fg);
+    font:15px/1.65 Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+
+  /* Nav */
+  .nav{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(10,10,10,.82), rgba(10,10,10,.56));backdrop-filter:saturate(160%) blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.06)}
+  .nav__inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand__badge{width:36px;height:36px;border-radius:12px;border:1px solid var(--steel);display:grid;place-items:center;font-size:18px;
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.06), var(--glow);
+    background:conic-gradient(from 210deg, rgba(220,0,0,.95), rgba(220,0,0,.25), rgba(220,0,0,.95))}
+  .brand__name{font-weight:800;letter-spacing:.3px}
+  .nav__links{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .chip{display:flex;align-items:center;gap:8px;border:1px solid var(--steel);padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06)}
+  .chip svg{width:16px;height:16px;fill:currentColor}
+  .cta{border:1px solid var(--steel);padding:10px 14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,.06), transparent);cursor:pointer}
+  .cta--primary{background:linear-gradient(180deg, var(--rosso), var(--rosso-deep)); border-color:transparent; color:#fff; box-shadow:var(--glow)}
+  .nav a:hover,.cta:hover{box-shadow:0 0 0 3px rgba(220,0,0,.25)}
+
+  /* Hero */
+  .hero{position:relative;overflow:hidden;isolation:isolate;border-bottom:1px solid rgba(255,255,255,.08)}
+  .hero__layer{position:absolute;inset:0;pointer-events:none}
+  .hero__liquid{position:absolute;width:120vmax;height:120vmax;left:50%;top:-60vmax;transform:translateX(-50%) rotate(-8deg);
+    background:radial-gradient(closest-side, var(--liquid-tint), transparent 60%);filter:blur(40px) saturate(140%);animation:drift 16s ease-in-out infinite alternate}
+  .hero__stripes{position:absolute;inset:-10% -40%;transform:rotate(-6deg);background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 10px, rgba(0,0,0,.1) 10px 20px);mix-blend:overlay;opacity:.4;animation:slide 14s linear infinite}
+  @keyframes drift{0%{transform:translateX(-52%) rotate(-8deg)}100%{transform:translateX(-48%) rotate(-8deg)}}
+  @keyframes slide{0%{background-position:0 0}100%{background-position:-1200px 0}}
+  .hero__content{padding:90px 0 70px}
+  .hero h1{font-size:clamp(36px,6vw,76px);line-height:1.05;margin:0 0 10px}
+  .hero p{max-width:820px;color:var(--muted);margin:0}
+  .hero__kpis{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+  .kpi{display:flex;align-items:center;gap:8px;border:1px solid var(--steel);padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.05)}
+  .kpi b{font-variant-numeric:tabular-nums}
+  .hero__cta{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+  .flagline{height:10px;background:
+    linear-gradient(90deg,#000 0 12.5%,#fff 12.5% 25%,#000 25% 37.5%,#fff 37.5% 50%,#000 50% 62.5%,#fff 62.5% 75%,#000 75% 87.5%,#fff 87.5% 100%);
+    background-size:120px 10px;opacity:.16}
+
+  /* Sections */
+  section{padding:90px 0}
+  .section__title{font-size:clamp(22px,3vw,34px);margin:0 0 14px}
+  .section__sub{color:var(--muted);max-width:820px}
+  .grid{display:grid;gap:16px}
+  @media(min-width:720px){.cols-2{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1040px){.cols-3{grid-template-columns:repeat(3,1fr)}}
+  .card{background:var(--card-bg);border:1px solid var(--steel);border-radius:16px;padding:18px}
+  .card:hover{box-shadow:0 10px 40px rgba(0,0,0,.35)}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s ease}
+  .reveal--in{opacity:1;transform:none}
+
+  /* Right scrubber */
+  .scrubber{position:fixed;right:22px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:40}
+  .dot{width:10px;height:10px;border-radius:50%;background:#333;border:1px solid #555;box-shadow:inset 0 0 0 2px rgba(255,255,255,.06);cursor:pointer}
+  .dot.active{background:var(--rosso);border-color:transparent;box-shadow:var(--glow)}
+
+  /* Pit-lane CTA */
+  .pitlane{position:fixed;left:16px;right:16px;bottom:16px;z-index:60;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    background:linear-gradient(180deg, rgba(220,0,0,.96), rgba(155,0,0,.98));border:1px solid #5b0a0a;color:#fff;border-radius:14px;padding:12px 14px;
+    box-shadow:0 10px 40px rgba(0,0,0,.45)}
+  .pitlane__flag{width:46px;height:32px;border-radius:6px;flex:none;background:
+      linear-gradient(90deg,#000 0 50%,#fff 50% 100%), linear-gradient(0deg,#000 0 50%,#fff 50% 100%);
+      background-size:16px 100%,100% 16px;background-repeat:repeat,repeat;border:1px solid rgba(255,255,255,.25)}
+  .pitlane__actions{display:flex;gap:10px;flex-wrap:wrap;margin-left:auto}
+  .btn{border:1px solid rgba(255,255,255,.25);padding:10px 14px;border-radius:10px;background:transparent;color:#fff;cursor:pointer}
+  .btn--go{background:#000;border-color:#000}
+  .btn:hover{box-shadow:0 0 0 3px rgba(255,234,0,.35)}
+  .close{background:transparent}
+
+  footer{padding:32px 0;color:var(--muted);text-align:center;border-top:1px solid rgba(255,255,255,.08)}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav__inner">
+    <div class="brand">
+      <div class="brand__badge" aria-hidden="true">🏎️</div>
+      <div>
+        <div class="brand__name">Srineesh Konda</div>
+        <div style="font-size:12px;color:var(--muted)">Data Analyst • USA</div>
+      </div>
+    </div>
+    <div class="nav__links">
+      <a class="chip" href="https://github.com/SrineeshKonda89" target="_blank" rel="noreferrer" title="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .3A12 12 0 0 0 0 12.5c0 5.4 3.5 10 8.3 11.6.6.1.8-.2.8-.5v-2c-3.4.8-4.1-1.6-4.1-1.6-.5-1.2-1.1-1.6-1.1-1.6-.9-.6.1-.6.1-.6 1 .1 1.6 1.1 1.6 1.1.9 1.6 2.4 1.1 3 .9.1-.6.4-1.1.7-1.4-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.4 1.2a11.6 11.6 0 0 1 6.2 0c2.4-1.5 3.4-1.2 3.4-1.2.6 1.6.2 2.9.1 3.2.8.9 1.2 2 1.2 3.3 0 4.7-2.8 5.7-5.5 6 .4.3.7.9.7 1.9v2.8c0 .3.2.6.8.5A12 12 0 0 0 24 12.5 12 12 0 0 0 12 .3"/></svg>
+        <span>GitHub</span>
+      </a>
+      <a class="chip" href="https://www.linkedin.com/in/srineesh-konda-sbk89" target="_blank" rel="noreferrer" title="LinkedIn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14a5 5 0 0 0-5 5v14a5 5 0 0 0 5 5h14a5 5 0 0 0 5-5v-14a5 5 0 0 0-5-5zm-11 19h-3v-10h3zm-1.5-11.2a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zm13.5 11.2h-3v-5.4c0-1.3-.5-2.2-1.6-2.2-1 0-1.5.7-1.7 1.4v6.2h-3v-10h3v1.3c.5-.8 1.3-1.6 2.7-1.6 2 0 3.6 1.3 3.6 4.1z"/></svg>
+        <span>LinkedIn</span>
+      </a>
+      <a class="chip" href="mailto:srineeshkonda@gmail.com" title="Email">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2v.5L12 13 4 6.5V6h16zM4 18V8.3l8 6.7 8-6.7V18H4z"/></svg>
+        <span>Email</span>
+      </a>
+      <a class="cta cta--primary" href="Srineesh_Data_Analyst_Resume.pdf" target="_blank" rel="noreferrer">Download Résumé</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="section-hero">
+  <div class="hero__layer hero__liquid" aria-hidden="true"></div>
+  <div class="hero__layer hero__stripes" aria-hidden="true"></div>
+  <div class="wrap hero__content">
+    <h1 class="reveal">Analytics built for clarity and speed.</h1>
+    <p class="reveal" style="transition-delay:.08s">
+      Data Analyst focused on dependable ETL, clear metrics, and explainable insights. Comfortable across SQL, Python, BI, and cloud data tools.
+    </p>
+    <div class="hero__kpis reveal" style="transition-delay:.14s">
+      <div class="kpi">Experience: <b id="years">3</b> yrs</div>
+      <div class="kpi">Core: SQL • Python • R</div>
+      <div class="kpi">BI: Power BI • Tableau</div>
+      <div class="kpi">Cloud: AWS • Azure</div>
+      <div class="kpi">On-track: <b id="lap">00:00</b></div>
+    </div>
+    <div class="hero__cta reveal" style="transition-delay:.22s">
+      <a class="cta cta--primary" href="Srineesh_Data_Analyst_Resume.pdf" target="_blank" rel="noreferrer">Grab Résumé</a>
+      <a class="cta" href="#section-summary">Read Summary</a>
+    </div>
+  </div>
+  <div class="flagline" aria-hidden="true"></div>
+</header>
+
+<!-- Right scrubber -->
+<aside class="scrubber" aria-label="Sections">
+  <a class="dot" data-target="#section-hero" aria-label="Hero"></a>
+  <a class="dot" data-target="#section-summary" aria-label="Summary"></a>
+  <a class="dot" data-target="#section-experience" aria-label="Experience"></a>
+  <a class="dot" data-target="#section-skills" aria-label="Skills"></a>
+  <a class="dot" data-target="#section-education" aria-label="Education"></a>
+  <a class="dot" data-target="#section-contact" aria-label="Contact"></a>
+</aside>
+
+<!-- Professional Summary (grounded) -->
+<section id="section-summary">
+  <div class="wrap">
+    <h2 class="section__title reveal">Professional Summary</h2>
+    <p class="section__sub reveal">
+      Data Analyst with hands-on experience in SQL, Python, statistical analysis, and BI dashboards. I build clean ETL pipelines,
+      validate data quality, and present results with clear KPIs for non-technical stakeholders. Comfortable working with marketing,
+      sales, and engineering partners in Agile settings.
+    </p>
+    <div class="grid cols-3" style="margin-top:18px">
+      <div class="card reveal">
+        <h3 style="margin:0 0 6px">Analysis</h3>
+        <ul>
+          <li>EDA, cohorting, trend & variance analysis</li>
+          <li>Hypothesis testing, correlations</li>
+          <li>Clustering (K-means, hierarchical)</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3 style="margin:0 0 6px">Engineering</h3>
+        <ul>
+          <li>SQL (CTEs, window functions)</li>
+          <li>Python (Pandas, NumPy, SciPy)</li>
+          <li>ETL on AWS/Azure (Athena, Glue, ADF, SQL)</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3 style="margin:0 0 6px">Visualization</h3>
+        <ul>
+          <li>Power BI (DAX), Tableau (LOD/drill-down)</li>
+          <li>Metric design & KPI storytelling</li>
+          <li>Dashboard performance basics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="flagline" aria-hidden="true" style="margin-top:28px"></div>
+</section>
+
+<!-- Experience (grounded responsibilities) -->
+<section id="section-experience">
+  <div class="wrap">
+    <h2 class="section__title reveal">Experience</h2>
+    <p class="section__sub reveal">Responsibilities and stack used in recent roles.</p>
+
+    <div class="grid cols-2" style="margin-top:18px">
+      <article class="card reveal">
+        <h3 style="margin:0 0 6px">Data Analyst • Franklin Templeton</h3>
+        <div style="color:var(--muted);font-size:13px;margin-bottom:8px">10/2024 – Present • Remote, USA</div>
+        <ul>
+          <li>Segmentation and behavioral analysis for client groups.</li>
+          <li>SQL on AWS (Athena/S3), Python for EDA and reporting.</li>
+          <li>Power BI dashboards with drill-through and DAX measures.</li>
+          <li>ETL orchestration and basic data-quality checks (Glue/Lambda).</li>
+          <li>Cross-functional collaboration with Marketing, Sales, and IT.</li>
+        </ul>
+      </article>
+
+      <article class="card reveal">
+        <h3 style="margin:0 0 6px">Data Analyst • PepsiCo</h3>
+        <div style="color:var(--muted);font-size:13px;margin-bottom:8px">01/2021 – 08/2023 • Hyderabad, India</div>
+        <ul>
+          <li>KPI definition and regional performance tracking.</li>
+          <li>Azure SQL & ADF ETL from SAP/partner sources.</li>
+          <li>Clustering and time-series analysis for promotion planning.</li>
+          <li>Python automation to reduce recurring manual reports.</li>
+          <li>Tableau dashboards with LOD and drill-downs.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+  <div class="flagline" aria-hidden="true" style="margin-top:28px"></div>
+</section>
+
+<!-- Skills -->
+<section id="section-skills">
+  <div class="wrap">
+    <h2 class="section__title reveal">Technical Skillset</h2>
+    <p class="section__sub reveal">Focus areas aligned to Analyst roles.</p>
+    <div class="grid cols-3" style="margin-top:18px">
+      <div class="card reveal">
+        <h3 style="margin:0 0 6px">Analysis & Stats</h3>
+        <ul>
+          <li>EDA, cohorts, descriptive statistics</li>
+          <li>Hypothesis testing, correlations</li>
+          <li>Clustering (K-means, hierarchical)</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3 style="margin:0 0 6px">Data & ETL</h3>
+        <ul>
+          <li>SQL (window functions, CTEs)</li>
+          <li>Python (Pandas, NumPy, SciPy)</li>
+          <li>Azure (SQL, ADF), AWS (S3, Athena, Glue, Lambda)</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3 style="margin:0 0 6px">BI & Storytelling</h3>
+        <ul>
+          <li>Power BI (DAX), Tableau (LOD/drill-down)</li>
+          <li>KPI design, stakeholder communication</li>
+          <li>Dashboard performance fundamentals</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="flagline" aria-hidden="true" style="margin-top:28px"></div>
+</section>
+
+<!-- Education (with what I learned) -->
+<section id="section-education">
+  <div class="wrap">
+    <h2 class="section__title reveal">Education</h2>
+    <div class="grid cols-2" style="margin-top:18px">
+      <div class="card reveal">
+        <h3 style="margin:0 0 6px">MPS, Analytics</h3>
+        <div style="color:var(--muted);font-size:13px;margin-bottom:8px">09/2023 – 04/2025 • Northeastern University, Boston, USA</div>
+        <ul style="margin-top:8px">
+          <li>Statistics (inference, hypothesis testing) and ML basics (regression, classification, clustering).</li>
+          <li>Data management and cloud ETL patterns (AWS/Azure) with reproducible pipelines and QA checks.</li>
+          <li>Power BI/Tableau for decision-focused storytelling and KPI design.</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3 style="margin:0 0 6px">B.Tech, Computer Science & Networks</h3>
+        <div style="color:var(--muted);font-size:13px;margin-bottom:8px">08/2019 – 05/2023 • Kakatiya Institute of Technology & Sciences, Telangana, India</div>
+        <ul style="margin-top:8px">
+          <li>Core CS: data structures, algorithms, DBMS, OS, computer networks.</li>
+          <li>SQL fundamentals, schema design, query optimization basics.</li>
+          <li>Python/Java for problem-solving; Linux tools and Git.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="flagline" aria-hidden="true" style="margin-top:28px"></div>
+</section>
+
+<!-- Contact -->
+<section id="section-contact">
+  <div class="wrap">
+    <h2 class="section__title reveal">Contact</h2>
+    <p class="section__sub reveal">Open to Data Analyst, BI Analyst, and Data Engineering-adjacent roles.</p>
+    <div class="card reveal" style="margin-top:18px">
+      <div class="grid cols-2">
+        <div>
+          <h3 style="margin:0 0 10px">Reach out</h3>
+          <p>Email: <a href="mailto:srineeshkonda@gmail.com">srineeshkonda@gmail.com</a></p>
+          <p>LinkedIn: <a href="https://www.linkedin.com/in/srineesh-konda-sbk89" target="_blank" rel="noreferrer">linkedin.com/in/srineesh-konda-sbk89</a></p>
+          <p>GitHub: <a href="https://github.com/SrineeshKonda89" target="_blank" rel="noreferrer">github.com/SrineeshKonda89</a></p>
+        </div>
+        <form action="mailto:srineeshkonda@gmail.com" method="post" enctype="text/plain" style="display:grid;gap:10px">
+          <input required name="name" placeholder="Your name" style="padding:12px;border-radius:10px;border:1px solid var(--steel);background:rgba(255,255,255,.02);color:var(--fg)">
+          <input required type="email" name="email" placeholder="Your email" style="padding:12px;border-radius:10px;border:1px solid var(--steel);background:rgba(255,255,255,.02);color:var(--fg)">
+          <textarea required name="message" rows="5" placeholder="Message" style="padding:12px;border-radius:10px;border:1px solid var(--steel);background:rgba(255,255,255,.02);color:var(--fg)"></textarea>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a class="cta cta--primary" href="Srineesh_Data_Analyst_Resume.pdf" target="_blank" rel="noreferrer">Download Résumé</a>
+            <button class="cta" type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> Srineesh Konda • Ferrari-inspired (no official logos)</div>
+</footer>
+
+<!-- Pit-lane CTA (Download only; Book removed) -->
+<div id="pitlane" class="pitlane" role="region" aria-label="Pit-Lane">
+  <div class="pitlane__flag" aria-hidden="true"></div>
+  <div><strong>Pit Stop:</strong> Download the résumé.</div>
+  <div class="pitlane__actions">
+    <a class="btn btn--go" href="Srineesh_Data_Analyst_Resume.pdf" target="_blank" rel="noreferrer">Download Résumé</a>
+    <button id="closePit" class="btn close" aria-label="Dismiss">✕</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const $ = (s, r=document)=>r.querySelector(s);
+  const $$ = (s, r=document)=>Array.from(r.querySelectorAll(s));
+
+  // Smooth scroll for scrubber/CTA links
+  $$(".scrubber .dot, a.cta[href^='#']").forEach(el=>{
+    el.addEventListener("click", e=>{
+      const target = el.getAttribute("data-target") || el.getAttribute("href");
+      if(!target || !target.startsWith("#")) return;
+      e.preventDefault();
+      const to = document.querySelector(target);
+      if(to) to.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+  });
+
+  // Lap timer
+  const lap = $("#lap"); let start = Date.now();
+  function pad(n){return n<10?("0"+n):(""+n)}
+  function tick(){const d=Math.floor((Date.now()-start)/1000),mm=Math.floor(d/60),ss=d%60;if(lap) lap.textContent=pad(mm)+":"+pad(ss);}
+  setInterval(tick,1000); tick();
+
+  // Reveal on scroll
+  const revObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add("reveal--in"); revObs.unobserve(e.target); }
+    });
+  }, {threshold:.15});
+  $$(".reveal").forEach(n=>revObs.observe(n));
+
+  // Scrubber active state (only existing sections)
+  const dots = $$(".scrubber .dot");
+  const sections = ['#section-hero','#section-summary','#section-experience','#section-skills','#section-education','#section-contact'].map(sel=>$(sel));
+  const secObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const idx = sections.indexOf(e.target);
+        dots.forEach((d,i)=>d.classList.toggle('active', i===idx));
+      }
+    });
+  }, {rootMargin:"-45% 0px -45% 0px", threshold:0});
+  sections.forEach(s=>secObs.observe(s));
+  dots.forEach((d,i)=>d.addEventListener('click', ()=>sections[i].scrollIntoView({behavior:'smooth'})));
+
+  // Parallax hero layers
+  const liq = document.querySelector('.hero__liquid');
+  const stripes = document.querySelector('.hero__stripes');
+  window.addEventListener('scroll', ()=>{
+    const y = window.scrollY || 0;
+    if(liq) liq.style.transform = `translateX(-50%) translateY(${y*-0.04}px) rotate(-8deg)`;
+    if(stripes) stripes.style.transform = `translateY(${y*-0.08}px) rotate(-6deg)`;
+  }, {passive:true});
+
+  // Pit-lane memory
+  const pit = $("#pitlane"), closePit = $("#closePit");
+  if(localStorage.getItem('pitlaneDismissed')==='1'){ pit.style.display='none'; }
+  closePit && closePit.addEventListener('click', ()=>{ pit.style.display='none'; localStorage.setItem('pitlaneDismissed','1'); });
+
+  // Footer year
+  $("#year").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
